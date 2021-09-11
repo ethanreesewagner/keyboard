@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Detector</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="680" height="400" style="border:1px solid #000000;"></canvas>
+    <script>
+        var c = document.getElementById('myCanvas');
+        var ctx = c.getContext('2d');
+
+        const alpha = new Image();
+        alpha.src = 'Alphakey.png';
+        const arrow = new Image();
+        arrow.src = 'Arrowkey.png';
+        const number = new Image();
+        number.src = 'Numberkey.png';
+        const other = new Image();
+        other.src = 'Otherkey.png';
+        const special = new Image();
+        special.src = 'Specialkey.png';
+
+        alpha.addEventListener('load', function(){
+            document.onkeydown = checkKey;
+
+            function checkKey(e) {
+    e = e || window.event;
+    if ((e.keyCode >= '65' && e.keyCode <= '90') || (e.keyCode >= '97' && e.keyCode <= '122')) {
+        ctx.drawImage(alpha, 0, 0);
+    }else if (e.keyCode >= '48' && e.keyCode <= '57') {
+        ctx.drawImage(number, 0, 0);
+    }else if (e.keyCode >= '37' && e.keyCode <= '40') {
+        ctx.drawImage(arrow, 0, 0);
+    }else if (e.keyCode == '17' || e.keyCode == '18' || e.keyCode == '27') {
+        ctx.drawImage(special, 0, 0);
+    }else{
+        ctx.drawImage(other, 0, 0);
+    }
+        }  
+            });  
+    </script>
+</body>
+</html>
